@@ -1,0 +1,21 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV["DATABASE_HOST"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  port: <%= ENV.fetch("DATABASE_PORT").to_i %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+
+development:
+  <<: *default
+  database: sahayog
+
+production:
+  <<: *default
+  database: sahayog
+  username: sahayog
+  password: <%= ENV["SAHAYOG_DATABASE_PASSWORD"] %>

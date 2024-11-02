@@ -1,0 +1,54 @@
+<%= form_with(model: @user_profile) do |f| %>
+  <div class="p-3 border border-gray-100 shadow-lg">
+    <div class="space-y-3">
+      <div>
+        <%= f.label :avatar %>
+        <%= f.file_field :avatar, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <% if @user_profile.errors[:avatar].any? %>
+          <div class="text-red-500">
+            <%= @user_profile.errors[:avatar].join(", ").capitalize %>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= f.label :display_name, "Name" %>
+        <%= f.text_field :display_name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <% if @user_profile.errors[:display_name].any? %>
+          <div class="text-red-500">
+            <%= @user_profile.errors[:display_name].join(", ").capitalize %>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= f.label :bio %>
+        <%= f.text_area :bio, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <% if @user_profile.errors[:bio].any? %>
+          <div class="text-red-500">
+            <%= @user_profile.errors[:bio].join(", ").capitalize %>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= f.label :address %>
+        <%= f.text_field :address, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <% if @user_profile.errors[:address].any? %>
+          <div class="text-red-500">
+            <%= @user_profile.errors[:address].join(", ").capitalize %>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= f.label :website %>
+        <%= f.text_field :website, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <% if @user_profile.errors[:website].any? %>
+          <div class="text-red-500">
+            <%= @user_profile.errors[:website].join(", ").capitalize %>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= f.submit "Save", class: "px-3 py-2 bg-blue-500 rounded-lg text-white" %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+<div class="image">
+  <div class="grid grid-cols-4 p-2 gap-2">
+    <% @project.images.each do |item| %>
+      <div class="h-40 w-52">
+        <%= image_tag item, class: "h-full w-full object-cover rounded-lg object-center group-hover:opacity-75" %>
+      </div>
+    <% end %>
+  </div>
+</div>

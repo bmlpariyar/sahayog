@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+
+  input[type="number"].appearance-none::-webkit-inner-spin-button,
+  input[type="number"].appearance-none::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+  }
+
+  input[type="number"].appearance-none {
+    -moz-appearance: textfield !important;
+  }
+}
+
+
+/*
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-200;
+  }
+}
+
+*/

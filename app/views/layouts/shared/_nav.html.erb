@@ -1,0 +1,52 @@
+<nav data-controller="menu" class="bg-white border-gray-200 ">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <%= link_to 'Sahayog', root_path, class: "self-center text-2xl font-semibold whitespace-nowrap" %>
+    <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+      <ul class="font-medium flex flex-col items-center justify-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white ">
+        <li>
+          <a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 " aria-current="page">Home</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">About</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Services</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Pricing</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Contact</a>
+        </li>
+        <li>
+          <% if user_signed_in? %>
+            <div class="flex items-center justify-center">
+              <button data-action="click->menu#toggle" class="focus:outline-none">
+                <% if current_user.user_profile && current_user.user_profile.avatar.attached? %>
+                  <%= image_tag current_user.user_profile.avatar, class: "rounded-full object-cover w-12 h-12" %>
+                <% else %>
+                  <%= image_tag 'default_user.jpg', class: "rounded-full object-cover w-12 h-12" %>
+                <% end %>
+              </button>
+            </div>
+          <% else %>
+            <%= link_to 'Login', new_user_session_path, class: "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0" %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div data-menu-target="modal" class="hidden absolute top-20 right-20 w-48 bg-gray-50 rounded-lg shadow-lg p-4 z-50">
+    <ul class="text-center">
+      <li>
+        <%= link_to 'Profile',user_profiles_path(current_user),class: "block px-4 py-2 text-gray-700 hover:bg-gray-200 hover:rounded-xl hover:shadow-lg" %>
+      </li>
+      <li>
+        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 hover:rounded-xl hover:shadow-lg">Settings</a>
+      </li>
+      <li>
+        <%= button_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: " text-red-600 block px-4 py-2 w-full hover:bg-gray-200 hover:rounded-xl hover:shadow-lg"  %>
+      </li>
+    </ul>
+  </div>
+</nav>

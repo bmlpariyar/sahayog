@@ -1,0 +1,49 @@
+<div class="grid grid-rows-2 gap-10">
+  <div class="row-span-1">
+    <div class="grid grid-cols-3 gap-3">
+      <!--User profile section -->
+      <div class="col-span-1 border border-gray-100 p-5 shadow-lg ">
+        <div class="flex flex-col  justify-center space-y-3">
+          <div>
+            <% if @user_profile && @user_profile.avatar.attached? %>
+              <%= image_tag @user_profile.avatar, class: "rounded-3xl object-cover w-48 h-48" %>
+            <% else %>
+              <%= image_tag 'default_user.jpg', class: "rounded-3xl object-cover w-48 h-48" %>
+            <% end %>
+            <% if current_user == @user %>
+              <div class=" w-48 mt-1 px-4 py-3 bg-blue-400 rounded-2xl text-white text-center">
+                <%= link_to 'Edit profile', edit_user_profile_path(@user_profile), class: "px-8 py-3" %>
+              </div>
+            <% end %>
+          </div>
+          <div>
+            <h1 class="font-bold text-2xl text-gray-400">Info</h1>
+            <h1 class="font-bold text-2xl text-gray-600"><%= @user_profile.display_name %></h1>
+            <div class="text-gray-600">
+              <p><%= @user_profile.address %></p>
+              <p><%= @user.email %></p>
+            </div>
+          </div>
+          <div>
+            <h1 class="font-bold text-2xl text-gray-400">Socials</h1>
+            <% @user_profile.social_links.each do |key, value| %>
+              <p class="text-sm text-gray-600"><%= key %>: <%= value %></p>
+            <% end %>
+          </div>
+          <div>
+            <h1 class="font-bold text-2xl text-gray-400">Website</h1>
+            <p class="text-sm text-gray-600"><%= @user_profile.website %></p>
+          </div>
+        </div>
+      </div>
+      <!--User Bio section -->
+      <div class="col-span-2 border border-gray-100 p-5 shadow-lg">
+        <h1 class="font-bold text-4xl mb-2 text-gray-400">About</h1>
+        <p><%= @user_profile.bio %></p>
+      </div>
+    </div>
+  </div>
+  <div class="row-span-2 shadow-lg border border-gray-100 p-5">
+    <h1 class="font-bold text-4xl text-gray-400 mb-2">Contributions</h1>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="flex items-center justify-center">
+  <div class="w-[70%] border-4 border-gray-200 p-10 rounded-3xl shadow-lg">
+    <div class="flex items-center space-x-10">
+      <div class="">
+        <%= image_tag @project.cover_image, class: "h-40 w-52 hover:opacity-90 object-cover object-center rounded-lg" %>
+      </div>
+      <div class="">
+        <h1 class="text-2xl mt-2">You are contributing to <strong><%= @project.title %></strong></h1>
+        <p>Created by: <%= @project.user.user_profile.display_name %></p>
+      </div>
+    </div>
+    <div class="mt-10">
+      <p class="text-gray-600 font-bold text-xl">Enter your contribution:</p>
+      <%= form_with(model: @contribution, html: { data: { controller: "amount-validation", action: "submit->amount-validation#validate" } }) do |f| %>
+        <div class="relative">
+          <div class="mt-4 mb-4 flex items-center justify-evenly font-bold text-sm space-x-2">
+            <button type="button" data-amount="100" data-action="click->amount-validation#addAmount" class="border border-gray-700 px-4 rounded-xl py-3">Rs. 100</button>
+            <button type="button" data-amount="200" data-action="click->amount-validation#addAmount" class="border border-gray-700 px-4 rounded-xl py-3">Rs. 200</button>
+            <button type="button" data-amount="400" data-action="click->amount-validation#addAmount" class="border border-gray-700 px-4 rounded-xl py-3">Rs. 400</button>
+            <button type="button" data-amount="500" data-action="click->amount-validation#addAmount" class="border border-gray-700 px-4 rounded-xl py-3">Rs. 500</button>
+            <button type="button" data-amount="1000" data-action="click->amount-validation#addAmount" class="border border-gray-700 px-4 rounded-xl py-3">Rs. 1000</button>
+            <button type="button" data-amount="2000" data-action="click->amount-validation#addAmount" class="border border-gray-700 px-4 rounded-xl py-3">Rs. 2000</button>
+            <button type="button" data-amount="3000" data-action="click->amount-validation#addAmount" class="border border-gray-700 px-4 rounded-xl py-3">Rs. 3000</button>
+            <button type="button" data-amount="5000" data-action="click->amount-validation#addAmount" class="border border-gray-700 px-4 rounded-xl py-3">Rs. 5000</button>
+            <button type="button" data-amount="10000" data-action="click->amount-validation#addAmount" class="border border-gray-700 px-4 rounded-xl py-3">Rs. 10000</button>
+          </div>
+          <span class="absolute left-3 top-[87px] transform -translate-y-3 font-bold text-3xl">Rs.</span>
+          <%= f.number_field :amount, class: "appearance-none block h-16 font-bold text-3xl shadow rounded-md border border-gray-400 outline-none px-12 py-2 mt-2 w-full placeholder:text-gray-200 text-right", placeholder: "Enter amount", step: 10, min: 0.0, max: 10000, data: { target: "amount-validation.input" } %>
+        </div>
+        <div id="error_message" class="text-red-500 mt-1 hidden" data-target="amount-validation.errorMessage"></div>
+        <label class="block mb-2 mt-5 text-xl font-bold text-gray-600" for="comments">Words of Support</label>
+        <%= f.text_area :comment, placeholder: "Give some words of support..........", rows: 8, class: "block shadow rounded-md border border-gray-400 outline-none px-4 py-2 mt-2 w-full text-lg " %>
+        <%= f.hidden_field :project_id, value: @project.id %>
+        <%= f.submit "Donate Now", class: "px-5 py-4 text-xl bg-gradient-to-b from-green-400 to-green-600 font-bold hover:transform hover:scale-105 hover:shadow-lg rounded-lg w-full mt-3 text-white" %>
+      <% end %>
+    </div>
+  </div>
+</div>

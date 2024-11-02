@@ -1,0 +1,16 @@
+<div id="<%= dom_id project %>">
+  <%= link_to project, class: "group" do %>
+    <div class=" p-5 hover:shadow-lg hover:border hover:border-gray-200 rounded-lg">
+      <div class="aspect-h-2 aspect-w-2 overflow-hidden rounded-lg bg-gray-200 border border-gray-100">
+        <% if project.cover_image.attached? %>
+          <%= image_tag project.cover_image, class: "h-full w-full  object-cover object-center group-hover:opacity-75" %>
+        <% else %>
+          <%= image_tag 'default_image.jpg', class: "h-full w-full object-cover object-center group-hover:opacity-75" %>
+        <% end %>
+      </div>
+      <h3 class="mt-4 text-sm font-bold text-gray-700"><%= project.title %></h3>
+      <p class="mt-2">Total Raised</p>
+      <p class="mt-1 text-lg font-medium text-gray-900"><%= project.amount %></p>
+    </div>
+  <% end %>
+</div>
