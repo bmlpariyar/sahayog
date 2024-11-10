@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
+  post "projects/:id/add_or_remove_support" => "projects#add_or_remove_support", as: :add_or_remove_support
+
   resources :user_profiles
   resources :contributions, only: [:new, :create]
 

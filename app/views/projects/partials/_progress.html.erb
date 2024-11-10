@@ -1,0 +1,16 @@
+<div
+  data-controller="progress"
+  data-progress-current-amount-value="<%= project.current_amount || 0 %>"
+  data-progress-goal-amount-value="<%= project.goal || 1 %>" 
+  class="bg-gray-200 rounded-full <%= place == "index" ? 'h-2' : 'h-7' %> mt-3 mb-4"
+>
+  <div
+    data-progress-target="bar"
+    class="bg-gradient-to-r from-green-400 to-green-600 <%= place == "index" ? 'h-2' : 'h-7' %> flex justify-center items-center rounded-full text-center text-white text-xs font-semibold shadow-md"
+    style="width: <%= 100 * project.current_amount.to_f / project.goal %>%"
+  >
+    <span class="text-lg <%= place == "index" ? 'hidden' : 'block' %>" data-progress-target="amountText">
+      <% project.current_amount %> / <%= project.goal %>
+    </span>
+  </div>
+</div>

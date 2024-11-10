@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :projects, dependent: :destroy
   has_one :user_profile
   has_many :contributions, dependent: :destroy
+  has_many :supports, dependent: :destroy
 
   enum :role, { user: 0, admin: 1 }
   after_initialize :set_default_role, if: :new_record?

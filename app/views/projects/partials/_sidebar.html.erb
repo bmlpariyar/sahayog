@@ -1,14 +1,14 @@
 <div class="border border-gray-100 shadow-lg p-5 rounded-md">
   <div class="grid grid-cols-3 gap-1">
     <div class="col-span-2 p-3">
-      <span class="text-3xl font-bold">2000000 Raised</span>
+      <span class="text-2xl font-bold"><%= coma_format(@project.contributions.sum(:amount)) %> raised</span>
       <div class="flex items-center justify-between text-sm text-gray-500 mt-2">
-        <p>Rs. <%= @project.amount.to_i %> goal</p>
-        <p>1.5k donations</p>
+        <p>Rs. <%= coma_format(@project.amount) %> goal</p>
+        <p><%= @project.contributions.where(created_at: Date.today.all_day).count %> donations</p>
       </div>
     </div>
-    <div class="col-span-1 p-3 flex items-center justify-center">
-      <div class="w-20 h-20 bg-green-400 rounded-full"></div>
+    <div>
+      <%= render "projects/partials/circular_progress", project: @project %>
     </div>
   </div>
   <div>
@@ -26,35 +26,28 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
         </svg>
       </div>
-      <span class="ml-2 font-bold text-lg text-blue-600">2000 people supported</span>
+      <span class="ml-2 font-bold text-lg text-blue-600"><%= @project.contributions.count %> pepople supported</span>
     </div>
     <div>
-      <div class="p-3 flex items-center mb-2">
-        <%= image_tag 'default_user.jpg', class:"w-10 h-10 rounded-full mr-3" %>
-        <div>
-          <h3 class="font-semibold">John Doe</h3>
-          <p class="text-sm text-gray-500">Rs. 200</p>
-        </div>
-      </div>
-      <div class="p-3 flex items-center mb-2">
-        <%= image_tag 'default_user.jpg', class:"w-10 h-10 rounded-full mr-3" %>
-        <div>
-          <h3 class="font-semibold">John Doe</h3>
-          <p class="text-sm text-gray-500">Rs. 800</p>
-        </div>
-      </div>
-      <div class="p-3 flex items-center mb-2">
-        <%= image_tag 'default_user.jpg', class:"w-10 h-10 rounded-full mr-3" %>
-        <div>
-          <h3 class="font-semibold">John Doe</h3>
-          <p class="text-sm text-gray-500">Rs. 500</p>
-        </div>
-      </div>
+      <% if @project.contributions.any? %>
+        <% @project.contributions.order(created_at: :desc).limit(5).each do |contribution| %>
+          <div class="p-3 flex items-center mb-2">
+            <% if contribution.user.user_profile.avatar.blank? %>
+              <%= image_tag  'default_user.jpg', class:"w-10 h-10 rounded-full mr-3" %>
+            <% else %>
+              <%= image_tag contribution.user.user_profile.avatar, class:"w-10 h-10 rounded-full mr-3" %>
+            <% end %>
+            <div>
+              <h3 class="font-semibold"><%=  contribution.user.user_profile.display_name.nil? ? contribution.user.email  :  contribution.user.user_profile.display_name %></h3>
+              <p class="text-sm text-gray-500 font-bold">Rs. <%= coma_format(contribution.amount) %></p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
-    <div class="p-3 flex items-center justify-around">
-      <button class="border border-gray-500 px-20 py-3 rounded-lg font-bold">All</button>
-      <button class="border border-gray-500 px-20 py-3 rounded-lg font-bold">Top</button>
-    </div>
+    <!-- ===================================================================== -->
+    <%= render "projects/partials/contributions_modal", project: @project %>
+    <!-- ===================================================================== -->
   </div>
 </div>
 <% if @project.user == current_user %>

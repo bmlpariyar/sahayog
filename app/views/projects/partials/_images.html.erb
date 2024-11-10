@@ -1,9 +1,18 @@
-<div class="image">
+<div class="image" data-controller="modal">
   <div class="grid grid-cols-4 p-2 gap-2">
     <% @project.images.each do |item| %>
       <div class="h-40 w-52">
-        <%= image_tag item, class: "h-full w-full object-cover rounded-lg object-center group-hover:opacity-75" %>
+        <%= image_tag item, class: "h-full w-full object-cover rounded-lg cursor-pointer hover:opacity-90 hover:shadow-lg", data: { action: "click->modal#open" } %>
       </div>
     <% end %>
+  </div>
+  <!-- Modal for displaying full-size image -->
+  <div data-modal-target="modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center">
+    <div class="relative max-w-3xl w-full p-8 bg-white rounded-lg shadow-lg">
+      <button data-action="click->modal#close" class="absolute top-3 text-3xl right-3 text-gray-900 hover:text-gray-600">
+        &times;
+      </button>
+      <img data-modal-target="image" src="" alt="Full Image" class="max-h-[85vh] mx-auto rounded-lg" />
+    </div>
   </div>
 </div>

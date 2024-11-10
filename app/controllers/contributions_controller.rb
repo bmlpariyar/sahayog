@@ -12,9 +12,9 @@ class ContributionsController < ApplicationController
     @contribution.user = current_user
 
     if @contribution.save
-      redirect_to @project, notice: "Contribution was successfully created"
+      redirect_to @project, notice: "Contribution was successfully created."
     else
-      render :new, status: :unprocessable_entity, alert: "#{@contribution.errors.full_messages}"
+      redirect_to @project, alert: @contribution.errors.full_messages.to_sentence
     end
   end
 

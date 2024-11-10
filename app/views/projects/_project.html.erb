@@ -8,9 +8,18 @@
           <%= image_tag 'default_image.jpg', class: "h-full w-full object-cover object-center group-hover:opacity-75" %>
         <% end %>
       </div>
-      <h3 class="mt-4 text-sm font-bold text-gray-700"><%= project.title %></h3>
-      <p class="mt-2">Total Raised</p>
-      <p class="mt-1 text-lg font-medium text-gray-900"><%= project.amount %></p>
+      <div class="mt-4 h-16 text-sm font-bold text-gray-700">
+        <h3><%= project.title %></h3>
+      </div>
+      <hr class="border-2 border-gray-300">
+      <div class="mt-4 flex justify-between items-center font-bold text-sm">
+        <span>Goal</span>
+        <span><%= coma_format(project.amount) %></span>
+      </div>
+      <div>
+        <%= render "projects/partials/progress", project: project, place: "index" %>
+        <span class="font-bold text-gray-700">Rs. <%= coma_format(project.current_amount) %> collected</span>
+      </div>
     </div>
   <% end %>
 </div>

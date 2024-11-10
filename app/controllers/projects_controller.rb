@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: %i[index show]
+  # before_action :authenticate_user!, except: %i[index show]
+  protect_from_forgery with: :null_session
 
   # GET /projects or /projects.json
   def index
@@ -10,6 +11,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1 or /projects/1.json
   def show
     @user_profile = @project.user.user_profile
+    @contributions = @project.contributions
   end
 
   # GET /projects/new
@@ -59,6 +61,21 @@ class ProjectsController < ApplicationController
       format.html { redirect_to projects_path, status: :see_other, notice: "Project was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def add_or_remove_support
+    project = Project.find(params[:id])
+    support = Support.find_by(user: current_user, project: project)
+
+    if support
+      support.destroy
+      render json: { success: true, supported: false }, status: :ok
+    else
+      Support.create!(user: current_user, project: project)
+      render json: { success: true, supported: true }, status: :ok
+    end
+  rescue ActiveRecord::RecordNotFound
+    render json: { success: false, error: "Project not found" }, status: :not_found
   end
 
   private

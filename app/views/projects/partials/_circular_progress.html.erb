@@ -1,0 +1,46 @@
+<div
+  data-controller="circular-progress"
+  data-circular-progress-current-amount-value="<%= project.current_amount || 0 %>"
+  data-circular-progress-goal-amount-value="<%= project.goal || 1 %>"
+  class="relative w-32 h-32"
+>
+  <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+    <!-- Background circle -->
+    <circle 
+      class="text-gray-200" 
+      stroke-width="12" 
+      stroke="currentColor" 
+      fill="transparent" 
+      r="44" 
+      cx="50" 
+      cy="50"
+    />
+    <!-- Progress circle -->
+    <circle 
+      data-circular-progress-target="bar"
+      class="text-transparent transition-all duration-300 ease-in-out "
+      stroke="url(#gradient)"
+      stroke-width="12" 
+      fill="transparent" 
+      r="44" 
+      cx="50" 
+      cy="50"
+    />
+    <!-- Gradient definition -->
+    <defs>
+      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color: #4ade80" />
+        <stop offset="100%" style="stop-color: #16a34a" />
+      </linearGradient>
+    </defs>
+  </svg>
+  <!-- Center text -->
+  <div class="absolute inset-0 flex items-center justify-center">
+    <span 
+      class="text-lg font-semibold block"
+      data-circular-progress-target="amountText"
+    >
+      <% 100 * project.current_amount.to_f / project.goal  %>%
+    </span>
+  </div>
+</div>
