@@ -64,7 +64,7 @@ gem "devise", "~> 4.9"
 
 gem "toastr-rails", "~> 1.0"
 
-gem "rails_live_reload", "~> 0.3.6"
+gem "rails_live_reload", "~> 0.4.0"
 
 gem "active_storage_validations", "~> 1.3"
 
